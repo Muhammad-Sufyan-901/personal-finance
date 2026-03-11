@@ -24,10 +24,10 @@ class AuthController extends Controller
         ]);
 
         // 2. Cek kredensial ke database
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
             // Arahkan ke halaman utama/dashboard setelah berhasil login
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/dashboard')->with('success', 'Berhasil login! Selamat datang kembali.');
         }
 
         // 3. Jika gagal, kembalikan ke form dengan pesan error
@@ -61,7 +61,7 @@ class AuthController extends Controller
         // 3. Langsung loginkan user yang baru mendaftar
         Auth::login($user);
 
-        return redirect('/dashboard');
+        return redirect('/dashboard')->with('success', 'Registrasi berhasil! Selamat datang.');
     }
 
     // --- Bagian Logout ---

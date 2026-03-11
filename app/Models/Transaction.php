@@ -16,6 +16,11 @@ class Transaction extends Model
         'amount',
         'description',
         'date',
+        'proofs',
+    ];
+
+    protected $casts = [
+        'proofs' => 'array'
     ];
 
     // Relasi: Satu transaksi dimiliki oleh satu user
